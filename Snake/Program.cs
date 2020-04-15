@@ -43,7 +43,7 @@ namespace Snake
             Console.BufferHeight = Console.WindowHeight;
             lastFoodTime = Environment.TickCount;
 
-            List<Position> obstacles = new List<Position>()
+            List<Position> obstacles = new List<Position>() //spawn the first obstacles
             {
                 new Position(12, 12),
                 new Position(14, 20),
@@ -51,7 +51,7 @@ namespace Snake
                 new Position(19, 19),
                 new Position(6, 9),
             };
-            foreach (Position obstacle in obstacles)
+            foreach (Position obstacle in obstacles) //write obstacle as "=" on declared position
             {
                 Console.ForegroundColor = ConsoleColor.Cyan;
                 Console.SetCursorPosition(obstacle.col, obstacle.row);
@@ -59,30 +59,30 @@ namespace Snake
             }
 
             Queue<Position> snakeElements = new Queue<Position>();
-            for (int i = 0; i <= 5; i++)
+            for (int i = 0; i <= 5; i++) //spawn snake body
             {
                 snakeElements.Enqueue(new Position(0, i));
             }
 
             Position food;
-            do
+            do //randomize where the food spawns
             {
                 food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
                     randomNumbersGenerator.Next(0, Console.WindowWidth));
             }
-            while (snakeElements.Contains(food) || obstacles.Contains(food));
+            while (snakeElements.Contains(food) || obstacles.Contains(food)); //to make sure that food doesnt spawn on both snake and obstacles
             Console.SetCursorPosition(food.col, food.row);
             Console.ForegroundColor = ConsoleColor.Yellow;
             Console.Write("@");
 
-            foreach (Position position in snakeElements)
+            foreach (Position position in snakeElements) //writes the body of the snake as "*" on declared position
             {
                 Console.SetCursorPosition(position.col, position.row);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("*");
             }
 
-            while (true)
+            while (true) //read the direction of arrow key which user inputted
             {
                 negativePoints++;
 
@@ -107,17 +107,19 @@ namespace Snake
                     }
                 }
 
-                Position snakeHead = snakeElements.Last();
-                Position nextDirection = directions[direction];
+                Position snakeHead = snakeElements.Last(); //make sure the head of the snake is spawned at the end of the "*" position
+                Position nextDirection = directions[direction]; //initialize which direction is inputted
 
                 Position snakeNewHead = new Position(snakeHead.row + nextDirection.row,
-                    snakeHead.col + nextDirection.col);
+                    snakeHead.col + nextDirection.col); //snakehead will move to the same direction to which the user inputted
 
+                // make sure the snake wont be able to go outside the screen
                 if (snakeNewHead.col < 0) snakeNewHead.col = Console.WindowWidth - 1;
                 if (snakeNewHead.row < 0) snakeNewHead.row = Console.WindowHeight - 1;
                 if (snakeNewHead.row >= Console.WindowHeight) snakeNewHead.row = 0;
                 if (snakeNewHead.col >= Console.WindowWidth) snakeNewHead.col = 0;
 
+                // the game will be over when the snake hits it body or the obstacles
                 if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                 {
                     Console.SetCursorPosition(0, 0);
@@ -130,10 +132,12 @@ namespace Snake
                     return;
                 }
 
+                // to maintain its body as how it is declared, in this scenario "*"
                 Console.SetCursorPosition(snakeHead.col, snakeHead.row);
                 Console.ForegroundColor = ConsoleColor.DarkGray;
                 Console.Write("*");
 
+                // writes the head of the snake as ">","<","^","v" to the position it is declared
                 snakeElements.Enqueue(snakeNewHead);
                 Console.SetCursorPosition(snakeNewHead.col, snakeNewHead.row);
                 Console.ForegroundColor = ConsoleColor.Gray;
@@ -148,17 +152,17 @@ namespace Snake
                     // feeding the snake
                     do
                     {
-                        food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                        food = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight), //randomize the new position of the food
                             randomNumbersGenerator.Next(0, Console.WindowWidth));
                     }
-                    while (snakeElements.Contains(food) || obstacles.Contains(food));
+                    while (snakeElements.Contains(food) || obstacles.Contains(food)); //writes "@" to indicate food to the designated position it randomized
                     lastFoodTime = Environment.TickCount;
                     Console.SetCursorPosition(food.col, food.row);
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write("@");
                     sleepTime--;
 
-                    Position obstacle = new Position();
+                    Position obstacle = new Position(); // randomize the position of the obstacles
                     do
                     {
                         obstacle = new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
@@ -175,12 +179,12 @@ namespace Snake
                 else
                 {
                     // moving...
-                    Position last = snakeElements.Dequeue();
+                    Position last = snakeElements.Dequeue(); // basically moving the snake and delete the last "body part" of the snake to maintain the length of the snake
                     Console.SetCursorPosition(last.col, last.row);
                     Console.Write(" ");
                 }
 
-                if (Environment.TickCount - lastFoodTime >= foodDissapearTime)
+                if (Environment.TickCount - lastFoodTime >= foodDissapearTime) // to make the food spawn somewhere else after a certain amount of time
                 {
                     negativePoints = negativePoints + 50;
                     Console.SetCursorPosition(food.col, food.row);
@@ -194,7 +198,7 @@ namespace Snake
                     lastFoodTime = Environment.TickCount;
                 }
 
-                Console.SetCursorPosition(food.col, food.row);
+                Console.SetCursorPosition(food.col, food.row); // write the body of the food as "@"
                 Console.ForegroundColor = ConsoleColor.Yellow;
                 Console.Write("@");
 
