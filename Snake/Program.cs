@@ -140,7 +140,18 @@ namespace Snake
                     Console.WriteLine("Game over!");
                     //if (userPoints < 0) userPoints = 0;
                     Console.WriteLine("Your points are: {0}", userPoints);
-                    return;
+                    Console.WriteLine("Please press the ENTER key to exit the game.");
+
+                    //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
+                    //while (keyInfo.Key == ConsoleKey.Enter)
+                    //{
+                      //return;
+                    //}
+                    while (Console.ReadKey().Key == ConsoleKey.Enter) { 
+                        return;
+                    }
+                    
+                    
                 }
 
                 // The game will be over and user will win if they reached 1000 points
