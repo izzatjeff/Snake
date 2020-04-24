@@ -22,6 +22,10 @@ namespace Snake
     {
         static void Main(string[] args)
         {
+            System.Media.SoundPlayer move = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Snake\Snake\sound\move.wav");
+            System.Media.SoundPlayer eat = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Snake\Snake\sound\eat.wav");
+            System.Media.SoundPlayer gameover = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Snake\Snake\sound\gameover.wav");
+            System.Media.SoundPlayer crash = new System.Media.SoundPlayer(@"C:\Users\User\Desktop\Snake\Snake\sound\crash.wav");
             byte right = 0;
             byte left = 1;
             byte down = 2;
@@ -46,13 +50,18 @@ namespace Snake
 
             // Spawn the first 5 obstacles in the game 
 
-            List<Position> obstacles = new List<Position>()
+            List<Position> obstacles = new List<Position>() //spawn the first obstacles
             {
-                new Position(12, 12),
-                new Position(14, 20),
-                new Position(7, 7),
-                new Position(19, 19),
-                new Position(6, 9),
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    randomNumbersGenerator.Next(0, Console.WindowWidth)),
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    randomNumbersGenerator.Next(0, Console.WindowWidth)),
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    randomNumbersGenerator.Next(0, Console.WindowWidth)),
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    randomNumbersGenerator.Next(0, Console.WindowWidth)),
+                new Position(randomNumbersGenerator.Next(0, Console.WindowHeight),
+                    randomNumbersGenerator.Next(0, Console.WindowWidth)),
             };
 
             foreach (Position obstacle in obstacles) //write obstacle as "=" on declared position
@@ -93,18 +102,22 @@ namespace Snake
                     if (userInput.Key == ConsoleKey.LeftArrow)
                     {
                         if (direction != right) direction = left;
+                        move.Play();
                     }
                     if (userInput.Key == ConsoleKey.RightArrow)
                     {
                         if (direction != left) direction = right;
+                        move.Play();
                     }
                     if (userInput.Key == ConsoleKey.UpArrow)
                     {
                         if (direction != down) direction = up;
+                        move.Play();
                     }
                     if (userInput.Key == ConsoleKey.DownArrow)
                     {
                         if (direction != up) direction = down;
+                        move.Play();
                     }
                 }
 
@@ -132,9 +145,17 @@ namespace Snake
 
                 int userPoints = (snakeElements.Count - 4) * 100;
 
+                // Show and update the score of the player
+
+                Console.ForegroundColor = ConsoleColor.Yellow;
+                Console.SetCursorPosition(110, 0);
+                Console.Write("Score: {0}", userPoints);
+
                 // the game will be over when the snake hits it body or the obstacles
+
                 if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                 {
+                    gameover.Play();
                     Console.SetCursorPosition(0, 0);
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Game over!");
@@ -147,14 +168,15 @@ namespace Snake
                     //{
                       //return;
                     //}
-                    while (Console.ReadKey().Key == ConsoleKey.Enter) { 
+                    while (Console.ReadKey().Key == ConsoleKey.Enter) {
                         return;
                     }
-                    
-                    
+
+
                 }
 
                 // The game will be over and user will win if they reached 1000 points
+
                 if (userPoints == 1000)
                 {
                     Console.SetCursorPosition(0, 0);
@@ -184,7 +206,7 @@ namespace Snake
                             randomNumbersGenerator.Next(0, Console.WindowWidth));
                     }
                     while (snakeElements.Contains(food) || obstacles.Contains(food)); //writes "@" to indicate food to the designated position it randomized
-
+                    eat.Play();
                     lastFoodTime = Environment.TickCount;
                     sleepTime--;
 

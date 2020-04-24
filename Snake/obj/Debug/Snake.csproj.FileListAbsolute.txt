@@ -18,3 +18,10 @@ D:\GitHub\Snake\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
 D:\GitHub\Snake\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
 D:\GitHub\Snake\Snake\obj\Debug\Snake.exe
 D:\GitHub\Snake\Snake\obj\Debug\Snake.pdb
+C:\Users\User\Desktop\Snake\Snake\bin\Debug\Snake.exe.config
+C:\Users\User\Desktop\Snake\Snake\bin\Debug\Snake.exe
+C:\Users\User\Desktop\Snake\Snake\bin\Debug\Snake.pdb
+C:\Users\User\Desktop\Snake\Snake\obj\Debug\Snake.csprojAssemblyReference.cache
+C:\Users\User\Desktop\Snake\Snake\obj\Debug\Snake.csproj.CoreCompileInputs.cache
+C:\Users\User\Desktop\Snake\Snake\obj\Debug\Snake.exe
+C:\Users\User\Desktop\Snake\Snake\obj\Debug\Snake.pdb
