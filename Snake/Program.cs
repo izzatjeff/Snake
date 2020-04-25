@@ -157,27 +157,28 @@ namespace Snake
                 {
                     gameover.Play();
 
-                    // Making text appear in the middle
-                    this.Height = height;
-                    this.Width = width;
-                    0.25 * height = newHeight;
-                    0.25 * width = newWidth;
-                    Console.SetCursorPosition(newWidth, newHeight);
-
+                    Console.SetCursorPosition(50, 6);
 
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Game over!");
                     //if (userPoints < 0) userPoints = 0;
+
+                    Console.SetCursorPosition(45, 7);
                     Console.WriteLine("Your points are: {0}", userPoints);
+
+                    Console.SetCursorPosition(35, 8);
                     Console.WriteLine("Please press the ENTER key to exit the game.");
 
                     // Nested while loop that only ends when user presses ENTER key
+                    int loopcount = 0;
                     while (Console.ReadKey().Key != ConsoleKey.Enter) {
                         if (Console.ReadKey().Key == ConsoleKey.Enter) {
                         return;
                         }
+                        loopcount =+ 1;
                     }
                 }
+
 
                 // The game will be over and user will win if they reached 1000 points
 
@@ -187,7 +188,13 @@ namespace Snake
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Congrats! You've won the game!");
                     Console.WriteLine("Your points are: {0}", userPoints);
-                    return;
+                    int loopcount = 0;
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) {
+                        if (Console.ReadKey().Key == ConsoleKey.Enter) {
+                        return;
+                        }
+                        loopcount =+ 1;
+                    }
                 }
 
                 // writes the head of the snake as ">","<","^","v" to the position it is declared
