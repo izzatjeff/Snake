@@ -156,23 +156,27 @@ namespace Snake
                 if (snakeElements.Contains(snakeNewHead) || obstacles.Contains(snakeNewHead))
                 {
                     gameover.Play();
-                    Console.SetCursorPosition(0, 0);
+
+                    // Making text appear in the middle
+                    this.Height = height;
+                    this.Width = width;
+                    0.25 * height = newHeight;
+                    0.25 * width = newWidth;
+                    Console.SetCursorPosition(newWidth, newHeight);
+
+
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Game over!");
                     //if (userPoints < 0) userPoints = 0;
                     Console.WriteLine("Your points are: {0}", userPoints);
                     Console.WriteLine("Please press the ENTER key to exit the game.");
 
-                    //ConsoleKeyInfo keyInfo = Console.ReadKey(true);
-                    //while (keyInfo.Key == ConsoleKey.Enter)
-                    //{
-                      //return;
-                    //}
-                    while (Console.ReadKey().Key == ConsoleKey.Enter) {
+                    // Nested while loop that only ends when user presses ENTER key
+                    while (Console.ReadKey().Key != ConsoleKey.Enter) {
+                        if (Console.ReadKey().Key == ConsoleKey.Enter) {
                         return;
+                        }
                     }
-
-
                 }
 
                 // The game will be over and user will win if they reached 1000 points
