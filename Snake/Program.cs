@@ -169,13 +169,18 @@ namespace Snake
                     Console.SetCursorPosition(35, 8);
                     Console.WriteLine("Please press the ENTER key to exit the game.");
 
-                    // Nested while loop that only ends when user presses ENTER key
-                    int loopcount = 0;
-                    while (Console.ReadKey().Key != ConsoleKey.Enter) {
-                        if (Console.ReadKey().Key == ConsoleKey.Enter) {
+                    var path = @"D:\GitHub\Snake\Snake\score.txt";
+                    string text = Console.ReadLine();
+
+                    string[] createText = { text, "score" };
+                    File.WriteAllLines(path, createText);
+                    Console.WriteLine("text written");
+                    
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true); //true here mean we won't output the key to the console, just cleaner in my opinion.
+                    
+                    if (keyInfo.Key == ConsoleKey.Enter)
+                    {
                         return;
-                        }
-                        loopcount =+ 1;
                     }
                 }
 
