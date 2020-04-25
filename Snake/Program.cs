@@ -169,15 +169,16 @@ namespace Snake
                     Console.SetCursorPosition(35, 8);
                     Console.WriteLine("Please press the ENTER key to exit the game.");
 
-                    var path = @"D:\GitHub\Snake\Snake\score.txt";
-                    string text = Console.ReadLine();
+                    string nametext = Console.ReadLine();
 
-                    string[] createText = { text, "score" };
-                    File.WriteAllLines(path, createText);
-                    Console.WriteLine("text written");
+                    using (System.IO.StreamWriter file =
+                            new System.IO.StreamWriter(@"C:\Users\joe_y\Desktop\Snaketest\score.txt", true))
+                    {
+                        file.WriteLine(nametext+ " - " + userPoints.ToString());
+                    }
+                    Console.WriteLine("Please press the ENTER key to exit the game."); //true here mean we won't output the key to the console, just cleaner in my opinion.
                     
-                    ConsoleKeyInfo keyInfo = Console.ReadKey(true); //true here mean we won't output the key to the console, just cleaner in my opinion.
-                    
+                    ConsoleKeyInfo keyInfo = Console.ReadKey(true);
                     if (keyInfo.Key == ConsoleKey.Enter)
                     {
                         return;
